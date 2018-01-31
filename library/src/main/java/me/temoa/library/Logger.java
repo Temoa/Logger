@@ -1,13 +1,14 @@
 package me.temoa.library;
 
 import android.os.Build;
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,53 +29,115 @@ public class Logger {
         return getPrinter().lineNumber();
     }
 
+    /* ------------------------------------------------------------------------------------------ */
+
     public static void d(String s) {
-        getPrinter().d(s);
+        getPrinter().d(s, (Object) null);
+    }
+
+    public static void d(Throwable e) {
+        getPrinter().d(e, null, (Object) null);
     }
 
     public static void d(String s, Object object) {
         getPrinter().d(s, object);
     }
 
+    public static void d(Throwable e, String s, Object object) {
+        getPrinter().d(e, s, object);
+    }
+
+    /* ------------------------------------------------------------------------------------------ */
+
     public static void e(String s) {
-        getPrinter().e(s);
+        getPrinter().e(s, (Object) null);
+    }
+
+    public static void e(Throwable e) {
+        getPrinter().e(e, null, (Object) null);
     }
 
     public static void e(String s, Object object) {
         getPrinter().e(s, object);
     }
 
+    public static void e(Throwable e, String s, Object object) {
+        getPrinter().e(e, s, object);
+    }
+
+    /* ------------------------------------------------------------------------------------------ */
+
     public static void w(String s) {
-        getPrinter().w(s);
+        getPrinter().w(s, (Object) null);
+    }
+
+    public static void w(Throwable e) {
+        getPrinter().w(e, null, (Object) null);
     }
 
     public static void w(String s, Object object) {
         getPrinter().w(s, object);
     }
 
+    public static void w(Throwable e, String s, Object object) {
+        getPrinter().w(e, s, object);
+    }
+
+    /* ------------------------------------------------------------------------------------------ */
+
     public static void v(String s) {
-        getPrinter().v(s);
+        getPrinter().v(s, (Object) null);
+    }
+
+    public static void v(Throwable e) {
+        getPrinter().v(e, null, (Object) null);
     }
 
     public static void v(String s, Object object) {
         getPrinter().v(s, object);
     }
 
+    public static void v(Throwable t, String s, Object object) {
+        getPrinter().v(t, s, object);
+    }
+
+    /* ------------------------------------------------------------------------------------------ */
+
     public static void i(String s) {
-        getPrinter().i(s);
+        getPrinter().i(s, (Object) null);
+    }
+
+    public static void i(Throwable e) {
+        getPrinter().i(e, null, (Object) null);
     }
 
     public static void i(String s, Object object) {
         getPrinter().i(s, object);
     }
 
+    public static void i(Throwable t, String s, Object object) {
+        getPrinter().i(t, s, object);
+    }
+
+    /* ------------------------------------------------------------------------------------------ */
+
     public static void wtf(String s) {
-        getPrinter().wtf(s);
+        getPrinter().wtf(s, (Object) null);
+    }
+
+    public static void wtf(Throwable e) {
+        getPrinter().wtf(e, null, (Object) null);
     }
 
     public static void wtf(String s, Object object) {
         getPrinter().wtf(s, object);
     }
+
+    public static void wtf(Throwable t, String s, Object object) {
+        getPrinter().wtf(t, s, object);
+    }
+
+    /* ------------------------------------------------------------------------------------------ */
 
     public static void json(String s) {
         getPrinter().json(s);
@@ -119,76 +182,158 @@ public class Logger {
             return this;
         }
 
-        public void d(@NonNull String s) {
-            print(Log.DEBUG, s);
+        /* -------------------------------------------------------------------------------------- */
+
+        public void d(String s) {
+            prepareLog(Log.DEBUG, null, s, (Object) null);
         }
 
-        public void d(@NonNull String s, Object... obj) {
-            print(Log.DEBUG, s, obj);
+        public void d(Throwable e) {
+            prepareLog(Log.DEBUG, e, null, (Object) null);
         }
 
-        public void e(@NonNull String s) {
-            print(Log.ERROR, s);
+        public void d(String s, Object... obj) {
+            prepareLog(Log.DEBUG, null, s, obj);
         }
 
-        public void e(@NonNull String s, Object... obj) {
-            print(Log.ERROR, s, obj);
+        public void d(Throwable t, String s, Object... obj) {
+            prepareLog(Log.DEBUG, t, s, obj);
         }
 
-        public void w(@NonNull String s) {
-            print(Log.WARN, s);
+        /* -------------------------------------------------------------------------------------- */
+
+        public void e(String s) {
+            prepareLog(Log.ERROR, null, s, (Object) null);
         }
 
-        public void w(@NonNull String s, Object... obj) {
-            print(Log.WARN, s, obj);
+        public void e(Throwable e) {
+            prepareLog(Log.ERROR, e, null, (Object) null);
         }
 
-        public void v(@NonNull String s) {
-            print(Log.VERBOSE, s);
+        public void e(String s, Object... obj) {
+            prepareLog(Log.ERROR, null, s, obj);
         }
 
-        public void v(@NonNull String s, Object... obj) {
-            print(Log.VERBOSE, s, obj);
+        public void e(Throwable t, String s, Object... obj) {
+            prepareLog(Log.ERROR, t, s, obj);
         }
 
-        public void i(@NonNull String s) {
-            print(Log.INFO, s);
+        /* -------------------------------------------------------------------------------------- */
+
+        public void w(String s) {
+            prepareLog(Log.WARN, null, s, (Object) null);
         }
 
-        public void i(@NonNull String s, Object... obj) {
-            print(Log.INFO, s, obj);
+        public void w(Throwable e) {
+            prepareLog(Log.WARN, e, null, (Object) null);
         }
 
-        public void wtf(@NonNull String s) {
-            print(Log.ASSERT, s);
+        public void w(String s, Object... obj) {
+            prepareLog(Log.WARN, null, s, obj);
         }
 
-        public void wtf(@NonNull String s, Object... obj) {
-            print(Log.ASSERT, s, obj);
+        public void w(Throwable t, String s, Object... obj) {
+            prepareLog(Log.WARN, t, s, obj);
         }
+
+        /* -------------------------------------------------------------------------------------- */
+
+        public void v(String s) {
+            prepareLog(Log.VERBOSE, null, s, (Object) null);
+        }
+
+        public void v(Throwable e) {
+            prepareLog(Log.VERBOSE, e, null, (Object) null);
+        }
+
+        public void v(String s, Object... obj) {
+            prepareLog(Log.VERBOSE, null, s, obj);
+        }
+
+        public void v(Throwable t, String s, Object... obj) {
+            prepareLog(Log.VERBOSE, t, s, obj);
+        }
+
+        /* -------------------------------------------------------------------------------------- */
+
+        public void i(String s) {
+            prepareLog(Log.INFO, null, s, (Object) null);
+        }
+
+        public void i(Throwable e) {
+            prepareLog(Log.INFO, e, null, (Object) null);
+        }
+
+        public void i(String s, Object... obj) {
+            prepareLog(Log.INFO, null, s, obj);
+        }
+
+        public void i(Throwable t, String s, Object... obj) {
+            prepareLog(Log.INFO, t, s, obj);
+        }
+
+        /* -------------------------------------------------------------------------------------- */
+
+        public void wtf(String s) {
+            prepareLog(Log.ASSERT, null, s, (Object) null);
+        }
+
+        public void wtf(Throwable e) {
+            prepareLog(Log.ASSERT, e, null, (Object) null);
+        }
+
+        public void wtf(String s, Object... obj) {
+            prepareLog(Log.ASSERT, null, s, obj);
+        }
+
+        public void wtf(Throwable t, String s, Object... obj) {
+            prepareLog(Log.ASSERT, t, s, obj);
+        }
+
+        /* -------------------------------------------------------------------------------------- */
 
         public void json(String s) {
-            print(Log.DEBUG, toJson(s));
+            prepareLog(Log.INFO, null, toJson(s), (Object) null);
         }
 
         public void json(int priority, String s) {
-            print(priority, toJson(s));
+            prepareLog(priority, null, toJson(s), (Object) null);
         }
 
-        private void print(int priority, String s) {
+        /* -------------------------------------------------------------------------------------- */
+
+        private void prepareLog(int priority, Throwable e, String s, Object... obj) {
             if (priority != Log.ASSERT && !sisLoggable) {
                 return;
             }
 
             String tag = getTag();
             String lineNumber = mExplicitLineNumber.get();
-            String msg = "";
             if (lineNumber != null) {
                 mExplicitLineNumber.remove();
-                msg = lineNumber;
             }
-            s = msg + s;
 
+            if (s == null) {
+                if (e == null) {
+                    return;
+                }
+                s = getStackTraceString(e);
+            } else {
+                if (obj != null && obj.length > 0) {
+                    s = String.format(s, obj);
+                }
+                if (e != null) {
+                    s += "\n" + getStackTraceString(e);
+                }
+                if (lineNumber != null) {
+                    s = lineNumber + s;
+                }
+            }
+
+            print(priority, tag, s);
+        }
+
+        private void print(int priority, String tag, String s) {
             if (s.length() < LOG_MAX_LENGTH) {
                 Log.println(priority, tag, s);
                 return;
@@ -204,22 +349,6 @@ public class Logger {
                     i = end;
                 } while (i < newline);
             }
-        }
-
-        private void print(int priority, String s, Object... obj) {
-            if (priority != Log.ASSERT && !sisLoggable) {
-                return;
-            }
-
-            String tag = getTag();
-            String lineNumber = mExplicitLineNumber.get();
-            String msg = "";
-            if (lineNumber != null) {
-                mExplicitLineNumber.remove();
-                msg = lineNumber;
-            }
-            msg += String.format(s, obj);
-            Log.println(priority, tag, msg);
         }
 
         private String getTag() {
@@ -257,7 +386,6 @@ public class Logger {
             return tag.substring(0, TAG_MAX_LENGTH);
         }
 
-        @NonNull
         private String getMethodLineNumber() {
             StackTraceElement[] stackTrace = new Throwable().getStackTrace();
             if (stackTrace.length < STACK_MIN_COUNT) {
@@ -274,7 +402,15 @@ public class Logger {
             return "(" + fileName + ":" + lineNumber + ")" + RIGHT_ARROW;
         }
 
-        public String toJson(@NonNull String json) {
+        private String getStackTraceString(Throwable e) {
+            StringWriter sw = new StringWriter(256);
+            PrintWriter pw = new PrintWriter(sw, false);
+            e.printStackTrace(pw);
+            pw.flush();
+            return sw.toString();
+        }
+
+        public String toJson(String json) {
             try {
                 if (json.startsWith("{")) {
                     return new JSONObject(json).toString(JSON_INDENT);
@@ -282,7 +418,7 @@ public class Logger {
                     return new JSONArray(json).toString(JSON_INDENT);
                 }
             } catch (JSONException e) {
-                return e.getCause().getMessage() + "\n" + json;
+                return e.getMessage() + "\n" + json;
             }
             return "Log error!. Can't parser string to json";
         }

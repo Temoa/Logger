@@ -1,7 +1,8 @@
 package me.temoa.logger;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 
 import me.temoa.library.Logger;
@@ -36,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
             "  ]\n" +
             "}";
 
+    private static final String sJson2 = "{\"employees\": [{\"firstName\":\"John\",\"lastName\":\"Doe\"},{\"firstName\":\"Anna\",\"lastName\":\"Smith\"},{\"firstName\":\"Peter\",\"lastName\":\"Jones\"}], \"url\":\"https://github.com/pedroSG94/rtmp-rtsp-stream-client-java\"}";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,5 +62,14 @@ public class MainActivity extends AppCompatActivity {
         Logger.tag("Logger").lineNumber().d("hello");
 
         Logger.json(sJson);
+        Logger.json(sJson2);
+        Logger.tag("Json").lineNumber().json(Log.DEBUG, sJson);
+
+        Logger.d(new Throwable("throwable 1"));
+        Logger.lineNumber().d(new Throwable("throwable 2"));
+        Logger.d(new Throwable("throwable 3"), "hello %s", "Temoa!!!");
+        Logger.tag("hello").d(new Throwable("throwable 4"), "hello");
+        Logger.tag("hello").d(new Throwable("throwable 5"), "hello %s", "Temoa!!!");
+        Logger.lineNumber().d(new Throwable("throwable 6"), "hello %s", "Temoa!!!");
     }
 }
