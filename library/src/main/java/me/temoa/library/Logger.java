@@ -39,11 +39,11 @@ public class Logger {
         getPrinter().d(e, null, (Object) null);
     }
 
-    public static void d(String s, Object object) {
+    public static void d(String s, Object... object) {
         getPrinter().d(s, object);
     }
 
-    public static void d(Throwable e, String s, Object object) {
+    public static void d(Throwable e, String s, Object... object) {
         getPrinter().d(e, s, object);
     }
 
@@ -57,11 +57,11 @@ public class Logger {
         getPrinter().e(e, null, (Object) null);
     }
 
-    public static void e(String s, Object object) {
+    public static void e(String s, Object... object) {
         getPrinter().e(s, object);
     }
 
-    public static void e(Throwable e, String s, Object object) {
+    public static void e(Throwable e, String s, Object... object) {
         getPrinter().e(e, s, object);
     }
 
@@ -75,11 +75,11 @@ public class Logger {
         getPrinter().w(e, null, (Object) null);
     }
 
-    public static void w(String s, Object object) {
+    public static void w(String s, Object... object) {
         getPrinter().w(s, object);
     }
 
-    public static void w(Throwable e, String s, Object object) {
+    public static void w(Throwable e, String s, Object... object) {
         getPrinter().w(e, s, object);
     }
 
@@ -93,11 +93,11 @@ public class Logger {
         getPrinter().v(e, null, (Object) null);
     }
 
-    public static void v(String s, Object object) {
+    public static void v(String s, Object... object) {
         getPrinter().v(s, object);
     }
 
-    public static void v(Throwable t, String s, Object object) {
+    public static void v(Throwable t, String s, Object... object) {
         getPrinter().v(t, s, object);
     }
 
@@ -111,11 +111,11 @@ public class Logger {
         getPrinter().i(e, null, (Object) null);
     }
 
-    public static void i(String s, Object object) {
+    public static void i(String s, Object... object) {
         getPrinter().i(s, object);
     }
 
-    public static void i(Throwable t, String s, Object object) {
+    public static void i(Throwable t, String s, Object... object) {
         getPrinter().i(t, s, object);
     }
 
@@ -129,11 +129,11 @@ public class Logger {
         getPrinter().wtf(e, null, (Object) null);
     }
 
-    public static void wtf(String s, Object object) {
+    public static void wtf(String s, Object... object) {
         getPrinter().wtf(s, object);
     }
 
-    public static void wtf(Throwable t, String s, Object object) {
+    public static void wtf(Throwable t, String s, Object... object) {
         getPrinter().wtf(t, s, object);
     }
 

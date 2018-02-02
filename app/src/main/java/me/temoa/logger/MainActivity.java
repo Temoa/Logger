@@ -53,7 +53,8 @@ public class MainActivity extends AppCompatActivity {
         Logger.i("hello");
         Logger.wtf("hello");
 
-        Logger.d("Hello %s", "Logger");
+        Logger.e("Hello %s", "Logger");
+        Logger.d("Hello %s and goodbye %s", "Logger", "Timber");
 
         Logger.tag("Logger").d("hello");
 
